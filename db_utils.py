@@ -59,12 +59,13 @@ class RDSDatabaseConnector:
             print(f"Error extracting data: {e}")
             return None
 
-    def save_data_to_csv(self, data_frame, file_path="output_data.csv"):
+    def save_data_to_csv(self, data_frame, file_path="output_data.csv", index=True):
         try:
-            data_frame.to_csv(file_path, index=False)
+            data_frame.to_csv(file_path, index=index)
             print(f"Data saved to {file_path}.")
         except Exception as e:
             print(f"Error saving data: {e}")
+
     def load_data_from_csv(self, file_path="output_data.csv"):
         try:
             data_frame = pd.read_csv(file_path)
@@ -73,17 +74,4 @@ class RDSDatabaseConnector:
         except Exception as e:
             print(f"Error loading data: {e}")
             return None
-
-if __name__ == "__main__":
-    rds_connector = RDSDatabaseConnector()
-
-    # Load data from the local CSV file
-    loaded_data_frame = rds_connector.load_data_from_csv(file_path="loan_payments_whole.csv")
-
-    # Now you can work with the loaded DataFrame as needed
-
-    # For example, you can print the shape and a sample of the loaded data
-    if loaded_data_frame is not None:
-        print(f"Shape of the loaded data: {loaded_data_frame.shape}")
-        print("Sample of the loaded data:")
-        print(loaded_data_frame.head())
+        

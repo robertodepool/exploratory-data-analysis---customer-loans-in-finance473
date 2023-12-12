@@ -1,0 +1,86 @@
+import pandas as pd
+import numpy as np
+from scipy.stats import boxcox, skew
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+class DataFrameInfo:
+    def __init__(self, df):
+        self.df = df
+
+    def describe_columns(self, columns=None):
+        if columns:
+            return self.df[columns].dtypes
+        else:
+            return self.df.dtypes
+
+    def extract_statistical_values(self, columns=None):
+        if columns:
+            return self.df[columns].describe()
+        else:
+            return self.df.describe()
+
+    def count_distinct_values(self, columns=None):
+        if columns:
+            distinct_counts = self.df[columns].nunique()
+        else:
+            distinct_counts = self.df.nunique()
+        return distinct_counts[distinct_counts > 1]
+
+    def print_shape(self):
+        return self.df.shape
+
+    def count_null_values(self, columns=None):
+        if columns:
+            null_counts = self.df[columns].isnull().sum()
+        else:
+            null_counts = self.df.isnull().sum()
+        percentage_null = (null_counts / len(self.df)) * 100
+        null_info = pd.DataFrame({
+            'Null Count': null_counts,
+            'Percentage Null': percentage_null
+        })
+        return null_info
+    
+    def data_skew(self, columns=None):
+        return self.df[columns].skew(axis = 0, skipna = True)
+    
+
+    def compare_transformations(self, column_to_transform):
+        original_values = self.df[column_to_transform]
+        original_skew = skew(original_values)
+
+        # Box-Cox transformation
+        boxcox_transformed_values, _ = boxcox(original_values)
+        boxcox_df = pd.DataFrame({f'Box-Cox Transformed {column_to_transform}': boxcox_transformed_values})
+        boxcox_skew = skew(boxcox_transformed_values)
+
+        # Log transformation
+        log_transformed_values = np.log1p(original_values)
+        log_df = pd.DataFrame({f'Log Transformed {column_to_transform}': log_transformed_values})
+        log_skew = skew(log_transformed_values)
+
+        # Print skewness values
+        print(f'Skewness - Original {column_to_transform}: {original_skew}')
+        print(f'Skewness - Box-Cox Transformed {column_to_transform}: {boxcox_skew}')
+        print(f'Skewness - Log Transformed {column_to_transform}: {log_skew}')
+
+        # Plot the comparisons
+        plt.figure(figsize=(12, 6))
+        plt.subplot(1, 3, 1)
+        sns.histplot(original_values, kde=True)
+        plt.title(f'Original {column_to_transform}')
+
+        plt.subplot(1, 3, 2)
+        sns.histplot(boxcox_transformed_values, kde=True)
+        plt.title(f'Box-Cox Transformed {column_to_transform}')
+
+        plt.subplot(1, 3, 3)
+        sns.histplot(log_transformed_values, kde=True)
+        plt.title(f'Log Transformed {column_to_transform}')
+
+        plt.tight_layout()
+        plt.show()
+
+
+    
