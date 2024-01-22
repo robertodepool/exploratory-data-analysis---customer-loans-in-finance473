@@ -1,5 +1,14 @@
-## Exploratory Data Analysis Project using a Customer Loan Database
-In this project, Exploratory Data Analysis (EDA) on a database which contains data pertaining to loans customers have taken out.
+# Exploratory Data Analysis Project using a Customer Loan Database
+In this project, Exploratory Data Analysis (EDA) is done on a database which contains data pertaining to loans customers have taken out.
+
+## Table of contents
+1. [Aim of the project](#aim-of-the-project)
+2. [What I have learned](#what-i-have-learned)
+3. [File Structure](#file-structure)
+4. [Usage instructions/classes/main.ipynb](#usage-instructionsclassesmainipynb)
+5. [CSV Files](#csv-files)
+6. [Others](#others)
+7. [Limitations](#limitations)
 
 ## Aim of the project
 To analyze a very robust database of loan customers by first making a number of classes to make this task easier, followed by transforming the data to eliminate outliers, null values, skewness, and making sure the data is ready for analysis. Finally, analysis takes place to observe different trends through graphs and calculations. A few examples of this: visualizing the state of the loans and projected profits, seeing losses due to charged-off loans and exploring potential predictors that may indicate losses. 
@@ -13,19 +22,24 @@ To analyze a very robust database of loan customers by first making a number of 
 - When it came to the actual analysis part post-transformation. I found this a little easier due to my background in Finance to do calculations to understand the data. And observing this through plots that I had already had some experience in the previous part. 
 - Lastly, I recognized too that in a lot of these sections more complex transformations and analysis could have been done and although I did do some research on this, it was beyond the scope of this task, nonetheless I am very excited to keep learning and going forward to have even better and more robust results.  
 
-## Classes
-- All Classes have docstrings that describe their functionalities 
-- The files:
-    - db_utils.py - class RDSDatabaseConnector
-    - data_transform_class.py - class DataTransform
-    - data_frame_info.py - class DataFrameInfo
-    - plotter_class.py - class Plotter
+## File Structure
+- db_utils.py - class RDSDatabaseConnector
+- data_transform_class.py - class DataTransform
+- data_frame_info.py - class DataFrameInfo
+- plotter_class.py - class Plotter
+- data
+    - loan_payments_whole.csv
+    - updated_2_loan_payments.csv
+    - updated_3_loan_payments.csv
+    - updated_4_loan_payments.csv
+    - updated_loan_payments.csv
+- .gitignore
+- main.ipynb
 
-## Usage instructions/The data_transform_nb
+## Usage instructions/classes/main.ipynb
 - Here is where all the classes are implemented to first transform our data utilizing various methods, followed by a short analysis section.
 - The notebook contains comments describing what is being done at each stage
-- I have to highlight for speed a lot of what has been done has been marked as comments which can be removed to see some plots or information regarding how I came to the conclusions to achieve each part.
-- Furthermore in the notebook due to the nature of the project I actually did the transformation of the datatypes just after milestone 4 however, it is highlighted as a comment at the very beginning due to the order of the tasks I decided to leave it there. 
+- Each class contains docstrings which explain each method thoroughly 
 
 ## CSV Files
 - loan_payments_whole.csv - initial file downloaded using the credentials and RDSConnector. It is a loan customer database. You can use the DataFrameInfo class for more details on this file. 
